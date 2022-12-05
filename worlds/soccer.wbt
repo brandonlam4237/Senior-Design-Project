@@ -1,0 +1,115 @@
+#VRML_SIM R2021b utf8
+WorldInfo {
+  coordinateSystem "NUE"
+}
+Viewpoint {
+  orientation 0.969243852750254 0.20523525380685598 -0.13581179809088567 5.5831209221890745
+  position -1.201738639634024 6.810085084810899 8.14628899478877
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  floorSize 7 5
+  floorAppearance Parquetry {
+    type "light strip"
+    colorOverride 0.0352941 0.611765 0.0352941
+  }
+}
+RobotstadiumGoal {
+  translation -3 0 0
+  rotation 0 1 0 -3.141592653589793
+  name "robotstadium goal(1)"
+}
+RobotstadiumGoal {
+  translation 3 0 0
+}
+SoccerBall {
+  translation 0 0.1 0
+  radius 0.1
+}
+Robot {
+  children [
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 -1
+        anchor -1 0.1 -0.15
+      }
+      device [
+        RotationalMotor {
+          name "motor_2"
+        }
+      ]
+      endPoint Solid {
+        translation -1 0.1 -0.15
+        rotation -1 0 0 1.5707996938995747
+        children [
+          DEF wheel2 Shape {
+            appearance PBRAppearance {
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.1
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE wheel2
+        physics DEF wheel_physics2 Physics {
+        }
+      }
+    }
+    DEF body Transform {
+      translation -1 0.11 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0.772549 0.172549 0.184314
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.3 0.2 0.3
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        axis 0 0 -1
+        anchor -1 0.1 0.15
+      }
+      device [
+        RotationalMotor {
+          name "motor_1"
+        }
+      ]
+      endPoint Solid {
+        translation -1 0.1 0.15
+        rotation 1 0 0 1.5708003061004252
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.1
+            }
+          }
+        ]
+        boundingObject USE wheel
+        physics DEF wheel_physics Physics {
+        }
+      }
+    }
+  ]
+  boundingObject USE body
+  physics Physics {
+  }
+  controller "robot_driver"
+}
