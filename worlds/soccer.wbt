@@ -3,31 +3,37 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.969243852750254 0.20523525380685598 -0.13581179809088567 5.5831209221890745
-  position -1.201738639634024 6.810085084810899 8.14628899478877
+  orientation 0.17186377376720344 -0.9383805499721118 -0.299841269175096 4.686459610577452
+  position 1.5778007585370992 0.9257386780443831 0.1017286111655542
 }
 TexturedBackground {
 }
-TexturedBackgroundLight {
-}
-RectangleArena {
-  floorSize 7 5
-  floorAppearance Parquetry {
-    type "light strip"
-    colorOverride 0.0352941 0.611765 0.0352941
-  }
-}
-RobotstadiumGoal {
-  translation -3 0 0
-  rotation 0 1 0 -3.141592653589793
-  name "robotstadium goal(1)"
-}
-RobotstadiumGoal {
-  translation 3 0 0
-}
-SoccerBall {
+Solid {
   translation 0 0.1 0
-  radius 0.1
+  rotation 0 0 1 0
+  children [
+    DEF FOOTBALL_SHAPE Shape {
+      appearance PBRAppearance {
+        baseColor 1 0 0
+        roughness 1
+        metalness 0
+        emissiveColor 1 0 0
+        emissiveIntensity 5
+      }
+      geometry Sphere {
+        radius 0.1
+        subdivision 3
+      }
+      castShadows FALSE
+    }
+  ]
+  name "soccer ball"
+  model "soccer ball"
+  boundingObject USE FOOTBALL_SHAPE
+  physics Physics {
+    density -1
+    mass 0.6
+  }
 }
 Robot {
   children [
@@ -43,7 +49,7 @@ Robot {
       ]
       endPoint Solid {
         translation -1 0.1 -0.15
-        rotation -1 0 0 1.5707996938995747
+        rotation -1 0 0 1.570799693899574
         children [
           DEF wheel2 Shape {
             appearance PBRAppearance {
@@ -67,7 +73,7 @@ Robot {
       children [
         Shape {
           appearance PBRAppearance {
-            baseColor 0.772549 0.172549 0.184314
+            baseColor 0 0 1
             roughness 1
             metalness 0
           }
@@ -112,4 +118,23 @@ Robot {
   physics Physics {
   }
   controller "robot_driver"
+}
+RobotstadiumSoccerField {
+}
+Robot {
+  translation 0 13 0
+  rotation 1 0 0 -1.5707953071795862
+  children [
+    Camera {
+      name "CAM"
+      width 832
+      height 592
+    }
+  ]
+  name "top_view_camera"
+  locked TRUE
+  controller "camera_controller"
+}
+TexturedBackgroundLight {
+  castShadows FALSE
 }
