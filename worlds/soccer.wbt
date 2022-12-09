@@ -22,7 +22,6 @@ Solid {
         radius 0.1
         subdivision 3
       }
-      castShadows FALSE
     }
   ]
   name "soccer ball"
