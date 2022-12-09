@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.560799126895653 -0.7174330606290636 -0.4132724800775967 5.109041949439384
-  position 2.725912823719615 4.214392817157826 3.23497180607425
+  orientation 0.9763112800108358 0.016427380145905234 -0.21574620669931838 5.669037941966106
+  position -0.7715567931210777 6.7488163887874375 11.100766149433097
 }
 TexturedBackground {
 }
@@ -35,7 +35,7 @@ Solid {
     mass 0.6
   }
 }
-Robot {
+DEF player_1 Robot {
   translation -1 0 0
   children [
     HingeJoint {
@@ -119,6 +119,10 @@ Robot {
   physics Physics {
   }
   controller "robot_driver"
+}
+Robot {
+  name "supervisor"
+  supervisor TRUE
 }
 Solid {
   children [
