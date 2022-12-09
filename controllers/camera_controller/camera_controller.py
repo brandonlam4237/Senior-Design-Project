@@ -4,9 +4,9 @@
 #  from controller import Robot, Motor, DistanceSensor
 from controller import Robot, Camera
 import numpy as np
-# import cv2
+import cv2
+# import codecs, json
 # import time
-#
 
 # create the Robot instance.
 robot = Robot()
@@ -27,10 +27,16 @@ camera.enable(timestep)
 cameraWidth = camera.getWidth()
 cameraHeight = camera.getHeight()
 
-def getBallPosition(im):
+def getBallPosition(img):
     "Returns pixel center location of ball from image"
-    # Returns all indices x and y in the 2d array where the red is the main color, which defines the ball.
-    Y, X = np.where(np.logical_and.reduce((250 <= im[:,:,2], im[:,:,2] <= 255, im[:,:,0] < 50, im[:,:,1] < 50)))
+
+    # Color code - BGR
+    lower = np.array([0, 0, 50]) # lower bound values for color
+    upper = np.array([50, 50, 255]) # upper bound values for color
+
+    # Returns all indices x and y in the 2d array where the color of the pixel
+    # falls with in the defined threshold, which defines the ball.
+    Y, X = np.where(cv2.inRange(img, lower, upper) != 0)
     # ball position in pixels
     xPixel, yPixel = np.median(X), np.median(Y)
 
@@ -43,6 +49,7 @@ def getBallPosition(im):
     z = unitsInPixel * (yPixel - ((cameraHeight / 2) - 0.5))
     return x, z
 
+doOnce = True
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
@@ -50,8 +57,11 @@ while robot.step(timestep) != -1:
     # Enter here functions to read sensor data, like:
 
     cameraData = camera.getImage();
-    image = np.frombuffer(cameraData, np.uint8).reshape((cameraHeight, cameraWidth, 4))
-    ballPos = getBallPosition(image)
+    image = np.frombuffer(cameraData, np.uint8).reshape((cameraHeight, cameraWidth, 4)) # get np array
+    img_float32 = np.float32(image)
+    bgr_img = cv2.cvtColor(img_float32, cv2.COLOR_BGRA2BGR) # convert from BGRA to BGR color format
+
+    ballPos = getBallPosition(bgr_img)
     print("Ball position:", ballPos)
 
     # Process sensor data here.

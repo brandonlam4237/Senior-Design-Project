@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.9763112800108358 0.016427380145905234 -0.21574620669931838 5.669037941966106
-  position -0.7715567931210777 6.7488163887874375 11.100766149433097
+  orientation 0.9825620968106084 -0.026739981878983927 -0.18400190020826543 5.453008690380185
+  position -0.20953457769030207 1.6121677575488635 2.178651117326026
 }
 TexturedBackground {
 }
@@ -17,8 +17,6 @@ Solid {
         baseColor 1 0 0
         roughness 1
         metalness 0
-        emissiveColor 1 0 0
-        emissiveIntensity 5
       }
       geometry Sphere {
         radius 0.1
@@ -184,6 +182,7 @@ Solid {
           3, 2, 1, 0, -1, 2, 3, 0, 1, -1
         ]
       }
+      castShadows FALSE
     }
     DEF WALL_OUTSIDE Shape {
       appearance PBRAppearance {
