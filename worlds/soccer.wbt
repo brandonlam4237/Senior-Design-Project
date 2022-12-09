@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.17186377376720344 -0.9383805499721118 -0.299841269175096 4.686459610577452
-  position 1.5778007585370992 0.9257386780443831 0.1017286111655542
+  orientation 0.949399748560853 0.2354113140846306 -0.20789812561333085 5.758238977058858
+  position -1.6731327542658847 8.658407455149106 12.24006190731004
 }
 TexturedBackground {
 }
@@ -35,7 +35,7 @@ Solid {
     mass 0.6
   }
 }
-Robot {
+DEF player_1 Robot {
   children [
     HingeJoint {
       jointParameters HingeJointParameters {
@@ -120,6 +120,11 @@ Robot {
   controller "robot_driver"
 }
 RobotstadiumSoccerField {
+}
+DEF supervisor Robot {
+  name "supervisor"
+  controller "supervisor_controller"
+  supervisor TRUE
 }
 Robot {
   translation 0 13 0
