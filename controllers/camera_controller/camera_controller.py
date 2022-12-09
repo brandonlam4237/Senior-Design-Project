@@ -4,9 +4,17 @@
 #  from controller import Robot, Motor, DistanceSensor
 from controller import Robot
 from controller import Camera
-import time
-# from controller import CameraRecognitionObject
-
+import numpy as np
+# import cv2
+# import time
+#
+#
+def getBallPosition(im):
+    "Returns pixel center location of ball from image"
+    # Returns all indices x and y in the 2d array where the red is the main color, which defines the ball.
+    Y, X = np.where(np.logical_and.reduce((250 <= im[:,:,2], im[:,:,2] <= 255, im[:,:,0] < 50, im[:,:,1] < 50)))
+    # ballRadius = np.max(X) - np.min(X) + 1
+    return np.median(X), np.median(Y)
 
 def getCurTime():
     return round(time.time()*1000)
@@ -36,22 +44,17 @@ do = True
 while robot.step(timestep) != -1:
     # Read the sensors:
     # Enter here functions to read sensor data, like:
-    #  val = ds.getValue()
-    # camera.getImage()
-    if do:
-        camera.saveImage("img.png", 100)
-        # print(camera.getImageArray())
-        # with open("imgData.py", "w") as f:
-        #     f.write(str(camera.getImage()))
-        # print(camera.getRecognitionNumberOfObjects())
-        # print(dir(object.position_on_image.acquire))
 
-        do = False
+    cameraData = camera.getImage();
+    image = np.frombuffer(cameraData, np.uint8).reshape((camera.getHeight(), camera.getWidth(), 4))
+    print(getBallPosition(image))
+
+
 
     # Process sensor data here.
 
     # Enter here functions to send actuator commands, like:
     #  motor.setPosition(10.0)
-    pass
+    # pass
 
 # Enter here exit cleanup code.
