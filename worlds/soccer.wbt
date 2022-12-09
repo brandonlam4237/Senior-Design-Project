@@ -122,6 +122,7 @@ DEF player_1 Robot {
 }
 Robot {
   name "supervisor"
+  controller "supervisor_controller"
   supervisor TRUE
 }
 Solid {
