@@ -3,8 +3,8 @@ WorldInfo {
   coordinateSystem "NUE"
 }
 Viewpoint {
-  orientation 0.9825620968106084 -0.026739981878983927 -0.18400190020826543 5.453008690380185
-  position -0.20953457769030207 1.6121677575488635 2.178651117326026
+  orientation 0.9859022542218496 0.04001860897288789 -0.1624661689588031 5.492032508965395
+  position -1.628421748791802 13.937582462837907 14.834272998527188
 }
 TexturedBackground {
 }
@@ -32,9 +32,22 @@ Solid {
     mass 0.6
   }
 }
-DEF player_1 Robot {
+DEF player_0 Robot {
   translation -1 0 0
   children [
+    Emitter {
+      channel 2
+    }
+    Receiver {
+      name "player_positions_receiver"
+      channel 2
+    }
+    GPS {
+    }
+    Receiver {
+      name "ball_pos_receiver"
+      channel 1
+    }
     HingeJoint {
       jointParameters HingeJointParameters {
         axis 0 0 -1
@@ -112,10 +125,224 @@ DEF player_1 Robot {
       }
     }
   ]
+  name "player_0"
   boundingObject USE body
   physics Physics {
   }
-  controller "robot_driver"
+  controller "player_driver"
+  controllerArgs [
+    "0"
+  ]
+}
+DEF player_1 Robot {
+  translation -0.5 0 1
+  rotation 0 0 0.9999999999999388 0
+  children [
+    Emitter {
+      channel 2
+    }
+    Receiver {
+      name "player_positions_receiver"
+      channel 2
+    }
+    GPS {
+    }
+    Receiver {
+      name "ball_pos_receiver"
+      channel 1
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0.5947035236108457
+        axis 0 0 -1
+        anchor 0 0.1 -0.15
+      }
+      device [
+        RotationalMotor {
+          name "motor_2"
+        }
+      ]
+      endPoint Solid {
+        translation 0 0.1 -0.15
+        rotation -0.9175444913870546 0.2811695562336756 -0.2811686095079416 1.6567478760102792
+        children [
+          DEF wheel2 Shape {
+            appearance PBRAppearance {
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.1
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE wheel2
+        physics DEF wheel_physics2 Physics {
+        }
+      }
+    }
+    DEF body Transform {
+      translation 0 0.11 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.3 0.2 0.3
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0.5947038350322732
+        axis 0 0 -1
+        anchor 0 0.1 0.15
+      }
+      device [
+        RotationalMotor {
+          name "motor_1"
+        }
+      ]
+      endPoint Solid {
+        translation 0 0.1 0.15
+        rotation 0.9175444551547368 -0.2811697014184143 -0.28116858256049315 1.6567485252937124
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.1
+            }
+          }
+        ]
+        boundingObject USE wheel
+        physics DEF wheel_physics Physics {
+        }
+      }
+    }
+  ]
+  name "player_1"
+  boundingObject USE body
+  physics Physics {
+  }
+  controller "player_driver"
+  controllerArgs [
+    "1"
+  ]
+}
+DEF player_2 Robot {
+  translation -0.5 0 -1
+  rotation 0 0 0.9999999999999388 0
+  children [
+    Emitter {
+      channel 2
+    }
+    Receiver {
+      name "player_positions_receiver"
+      channel 2
+    }
+    GPS {
+    }
+    Receiver {
+      name "ball_pos_receiver"
+      channel 1
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0.5947035236108457
+        axis 0 0 -1
+        anchor 0 0.1 -0.15
+      }
+      device [
+        RotationalMotor {
+          name "motor_2"
+        }
+      ]
+      endPoint Solid {
+        translation 0 0.1 -0.15
+        rotation -0.9175444913870546 0.2811695562336756 -0.2811686095079416 1.6567478760102792
+        children [
+          DEF wheel2 Shape {
+            appearance PBRAppearance {
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.1
+            }
+          }
+        ]
+        name "solid(1)"
+        boundingObject USE wheel2
+        physics DEF wheel_physics2 Physics {
+        }
+      }
+    }
+    DEF body Transform {
+      translation 0 0.11 0
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 1
+            roughness 1
+            metalness 0
+          }
+          geometry Box {
+            size 0.3 0.2 0.3
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 0.5947038350322732
+        axis 0 0 -1
+        anchor 0 0.1 0.15
+      }
+      device [
+        RotationalMotor {
+          name "motor_1"
+        }
+      ]
+      endPoint Solid {
+        translation 0 0.1 0.15
+        rotation 0.9175444551547368 -0.2811697014184143 -0.28116858256049315 1.6567485252937124
+        children [
+          DEF wheel Shape {
+            appearance PBRAppearance {
+              roughness 1
+              metalness 0
+            }
+            geometry Cylinder {
+              height 0.1
+              radius 0.1
+            }
+          }
+        ]
+        boundingObject USE wheel
+        physics DEF wheel_physics Physics {
+        }
+      }
+    }
+  ]
+  name "player_1(1)"
+  boundingObject USE body
+  physics Physics {
+  }
+  controller "player_driver"
+  controllerArgs [
+    "2"
+  ]
 }
 Robot {
   name "supervisor"
@@ -715,6 +942,9 @@ Robot {
   translation 0 14 0
   rotation 1 0 0 -1.5707953071795862
   children [
+    Emitter {
+      channel 1
+    }
     Camera {
       name "CAM"
       fieldOfView 0.71205
@@ -722,7 +952,7 @@ Robot {
       height 592
     }
   ]
-  name "top_view_camera"
+  name "ball_tracker"
   locked TRUE
   controller "camera_controller"
 }
