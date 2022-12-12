@@ -344,11 +344,6 @@ DEF player_2 Robot {
     "2"
   ]
 }
-Robot {
-  name "supervisor"
-  controller "supervisor_controller"
-  supervisor TRUE
-}
 Solid {
   children [
     Shape {
